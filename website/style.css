@@ -10,15 +10,21 @@ body {
   margin: 0;
   background: #fffff8;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-  display: grid;
-  place-content: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   min-height: 100vh;
   box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, 0.3);
   background: linear-gradient(135deg, #77c8c0, #267aac), #77c8c0;
 }
 .gradient {
   position: absolute;
-  inset: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  height: 100%;
+  left: 100%;
   opacity: 0;
   background: linear-gradient(135deg, #4ad7b8, #f39c12), #4ad7b8;
   animation: gradient 4s ease-in-out infinite;
@@ -85,7 +91,7 @@ body {
   /* background: rgba(59, 74, 107, 0.4); */
   position: relative;
 }
-.entry::after{
+.entry::after {
   position: absolute;
   content: "";
   height: 4px;
@@ -128,7 +134,7 @@ input {
 }
 
 button {
-  margin-block: 20px;
+  margin: 20px 0;
   position: relative;
   outline: none;
   cursor: pointer;
@@ -147,7 +153,10 @@ button {
 button::before {
   position: absolute;
   content: "";
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background: #004b49;
   border-radius: inherit;
   box-shadow: 0 0 0 2px #1c352d, 0 0.6em 0 0 #00755e;
