@@ -9,7 +9,7 @@ body {
   padding: 0;
   margin: 0;
   background: #fffff8;
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -24,9 +24,11 @@ body {
   right: 0;
   left: 0;
   height: 100%;
-  left: 100%;
+  width: 100%;
+  min-height: 100vh;
   opacity: 0;
   background: linear-gradient(135deg, #4ad7b8, #f39c12), #4ad7b8;
+  background-size: cover;
   animation: gradient 4s ease-in-out infinite;
   z-index: -1;
 }
@@ -42,7 +44,6 @@ body {
   background: #007f5f;
   color: #f3efcc;
   font-size: 20px;
-  font-family: "Oswald", sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -104,21 +105,19 @@ body {
 #entryHolder {
   margin-top: 20px;
 }
-
-/* #date {
+#entryHolder * {
+  margin-bottom: 10px;
 }
-
-#temp {
-}
-
-#content {
-} */
 
 .headline {
   text-align: center;
 }
-/* .title {
-} */
+.title {
+  font-size: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-style: italic;
+}
 
 /*  Basic Styling To Override Default For Basic HTML Elements */
 input {
@@ -128,7 +127,7 @@ input {
   background: #406343;
   color: #f3efcc;
   font-size: 20px;
-  font-family: "Oswald", sans-serif;
+
   border: none;
   padding: 10px;
 }
@@ -191,7 +190,7 @@ textarea {
   color: #f3efcc;
   font-size: 20px;
   padding: 10px;
-  font-family: "Oswald", sans-serif;
+
   max-height: 200px;
   display: block;
 }
@@ -206,17 +205,14 @@ button:focus {
 ::placeholder {
   /* Firefox, Chrome, Opera */
   color: #f3efcc;
-  font-family: "Oswald", sans-serif;
 }
 
 :-ms-input-placeholder {
   /* Internet Explorer 10-11 */
   color: #f3efcc;
-  font-family: "Oswald", sans-serif;
 }
 
 ::-ms-input-placeholder {
   /* Microsoft Edge */
   color: #f3efcc;
-  font-family: "Oswald", sans-serif;
 }

@@ -4,12 +4,9 @@
     <meta charset="UTF-8" />
     <title>Weather Journal</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-    href="https://fonts.googleapis.com/css?family=Oswald:400,600,700|Ranga:400,700&display=swap"
-    rel="stylesheet"
-    crossorigin="anonymous"
-    />
+    <!-- to solve the fav icon problem -->
     <link rel="shortcut icon" href="#" />
+    <!-- the main styles -->
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
@@ -31,9 +28,11 @@
         ></textarea>
         <button id="generate" type="submit">Generate</button>
       </div>
-      <div class="holder entry">   
+      <div class="holder entry">
         <div class="title">Most Recent Entry</div>
         <div id="entryHolder">
+          <div id="city"></div>
+          <div id="description"></div>
           <div id="date"></div>
           <div id="temp"></div>
           <div id="content"></div>
