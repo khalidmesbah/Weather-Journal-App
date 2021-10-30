@@ -1,103 +1,100 @@
 /* ----------------Global Variables---------------- */
 // create the url
-const apiKey = `&appid=ddc41e9557902b7fefb029830d71fe4d`;
+const personalApiKey = `&appid=ddc41e9557902b7fefb029830d71fe4d`;
 const baseUrl = `http://api.openweathermap.org/data/2.5/weather?zip=`;
-
-// Create a date instance dynamically with JS
-const date = new Date().toDateString();
-
-// the absolute url of the server
-const server = "http://localhost:4000";
 
 // the button to to display the weather info
 const generateBtn = document.getElementById("generate");
 
 // varibles to update the UI dynamiclly
-const descriptionEl = document.getElementById("description");
 const contentEl = document.getElementById("content");
 const dateEl = document.getElementById("date");
 const tempEl = document.getElementById("temp");
-const cityEl = document.getElementById("city");
 
-// the element where we will store the error message in
-const errorEl = document.querySelector(".title");
+// the element where we will store the erroror message in
+const errororEl = document.querySelector(".title");
 
-// the info object for weatherData
-const info = {};
+let ourData;
+
+/*Create an event listener for the element with the id: generate,
+  with a callback function to execute when it is clicked.
+  inside that callback function call your async GET request with the parameters:
+    base url
+    user entered zip code (see input in html with id zip)
+    personal API key
+*/
 
 generateBtn.addEventListener("click", () => {
-  // get the user's feelings
   const feelings = document.getElementById("feelings").value.trim();
+  // const enteredZipCode = document.getElementById("zip").value.trim();
+  // const enteredZipCode = 85001 ;
+  // const enteredZipCode = 99501  ;
+  const enteredZipCode = 72201;
 
-  // get the user's zipcode
-  const zipCode = document.getElementById("zip").value.trim();
-
-  // a funciotn to get the weather info from the API and send it to the server and get it back from the server and then update the UI with this info
-  getWeatherInfo(zipCode, feelings).then((info) => {
-    if (info) {
-      // destructuring the object to get the data we want
-      const {
-        main: { temp },
-        name: city,
-        weather: [{ description }],
-      } = info;
-
-      // the data we want
-      const data = {
-        city,
-        temp: Math.round(temp),
-        description,
-        feelings: feelings || `you didn't type your feelings`,
-      };
-      sendDataToTheServer(`${server}/addWeatherData`, data).then(updateUI());
-    }
-  });
+  fetchOpenWeatherMapApi(baseUrl, enteredZipCode, personalApiKey).then(
+    (apiResponse) =>
+      addOurDataToTheServer(apiResponse).then(getOurDataFromTheServer())
+  );
 });
 
-const getWeatherInfo = async (zipCode) => {
+const addOurDataToTheServer = async (apiResponse) => {
+  ourData = {
+    temp: apiResponse.main.temp,
+    date: new Date().toDateString(),
+    feelings: feelings.value || "You didn't type your feelings",
+  };
   try {
-    const respnose = await fetch(`${baseUrl}${zipCode}${apiKey}`);
-    const info = await respnose.json();
-
-    if (info.cod != 200) {
-      errorEl.textContent = info.message;
-      dateEl.textContent = ``;
-      tempEl.textContent = ``;
-      cityEl.textContent = ``;
-      descriptionEl.textContent = ``;
-      contentEl.textContent = ``;
-      throw `${info.message}`;
-    }
-
-    return info;
-  } catch (err) {
-    console.log(err);
+    await fetch("http://localhost:8080/addWeatherData", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(ourData),
+    });
+  } catch (error) {
+    console.log(`error in addOurDataToTheServer: ${error}`);
   }
 };
 
-const sendDataToTheServer = async (url = "", data = {}) => {
-  await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  });
+const getOurDataFromTheServer = async () => {
+  const response = await fetch("http://localhost:8080/getWeatherData");
+  let ourData = await response.json();
+  console.log(ourData);
+
+  return ourData;
+  // try {
+  //   if (!res.temp) {
+  //     errororEl.textContent = res.message;
+  //     dateEl.textContent = ``;
+  //     tempEl.textContent = ``;
+  //     contentEl.textContent = ``;
+  //   } else {
+  //     errororEl.textContent = "Most Recent Entry ";
+  //     dateEl.textContent = `Date: ${res.date}`;
+  //     tempEl.textContent = `Temp: ${res.temp}`;
+  //     contentEl.textContent = `Feelings: ${res.feelings}`;
+  //   }
+  //   return res;
+  // } catch (error) {
+  //   console.log(`error in getOurDataFromTheServer(): ${error}`);
+  // }
 };
 
-// an asynchronous function to fetch the data from the app endpoint
-const updateUI = async () => {
-  const res = await fetch(`${server}/getWeatherData`);
-  const info = await res.json();
-
+// Write an async function in app.js that uses fetch() to make a GET request to the OpenWeatherMap API.
+const fetchOpenWeatherMapApi = async (
+  baseUrl,
+  enteredZipCode,
+  personalApiKey
+) => {
   try {
-    errorEl.textContent = "Most Recent Entry ";
-    cityEl.textContent = `City: ${info.city}`;
-    descriptionEl.textContent = `description: ${info.description}`;
-    dateEl.textContent = `Date: ${date}`;
-    tempEl.textContent = `Temp: ${info.temp}`;
-    contentEl.textContent = `Your feeling: ${info.feelings}`;
-  } catch (err) {
-    console.log(err);
+    const respnose = await fetch(
+      `${baseUrl}${enteredZipCode}${personalApiKey}`
+    );
+    const apiData = await respnose.json();
+
+    console.log(apiData);
+    return apiData;
+  } catch (error) {
+    console.log(`error in fetchOpenWeatherMapApi (): ${error}`);
   }
 };

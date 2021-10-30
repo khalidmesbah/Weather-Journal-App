@@ -21,7 +21,7 @@ app.use(cors());
 app.use(express.static("website"));
 
 // Setup Server
-const port = 4000;
+const port = 8080;
 app.listen(port, () => {
   console.log(`the server is running on localhost ${port}`);
 });
@@ -29,9 +29,13 @@ app.listen(port, () => {
 // the get request
 app.get("/getWeatherData", (req, res) => {
   res.send(projectData);
+  console.log("get===============>: ");
+  console.log(projectData);
 });
 
 // the post request
 app.post("/addWeatherData", (req, res) => {
   projectData = req.body;
+  console.log("post===============>: ");
+  console.log(projectData);
 });
