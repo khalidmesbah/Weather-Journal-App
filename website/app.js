@@ -1,6 +1,6 @@
 /* ----------------Global Variables---------------- */
 // the url & my credentials on OpenWeatherMap.com
-const key = `&appid=ddc41e9557902b7fefb029830d71fe4d`;
+const key = `&appid=ddc41e9557902b7fefb029830d71fe4d&units=metric`;
 const url = `http://api.openweathermap.org/data/2.5/weather?zip=`;
 
 // our server to make a get & post request to
@@ -84,7 +84,7 @@ const updateTheUi = (ourData) => {
         "content"
       ).innerHTML = `Feelings: ${ourData.feelings}`;
       document.getElementById("date").innerHTML = `Date: ${ourData.date}`;
-      document.getElementById("temp").innerHTML = `Temp: ${ourData.temp}`;
+      document.getElementById("temp").innerHTML = `Temp: ${ourData.temp} `;
     } else {
       document.querySelector(".title").innerHTML = ourData.message;
       document.getElementById("content").innerHTML = ``;
