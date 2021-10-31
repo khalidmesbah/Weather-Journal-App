@@ -29,13 +29,9 @@ app.listen(port, () => {
 // the get request
 app.get("/getWeatherData", (req, res) => {
   res.send(projectData);
-  console.log("get===============>: ");
-  console.log(projectData);
 });
 
 // the post request
 app.post("/addWeatherData", (req, res) => {
   projectData = req.body;
-  console.log("post===============>: ");
-  console.log(projectData);
 });
