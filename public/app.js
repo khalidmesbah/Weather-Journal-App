@@ -1,6 +1,6 @@
 // the url & my credentials on OpenWeatherMap.com
 const key = `&appid=ddc41e9557902b7fefb029830d71fe4d&units=metric`;
-const url = `http://api.openweathermap.org/data/2.5/weather?zip=`;
+const url = `https://api.openweathermap.org/data/2.5/weather?zip=`;
 const form = document.getElementById("myForm");
 const zip = document.getElementById(`zip`);
 // our server to make a get & post request to
