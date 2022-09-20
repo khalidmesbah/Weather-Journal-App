@@ -15,25 +15,34 @@
       <div class="holder headline">
         <h1>Weather Journal App</h1>
       </div>
-      <div class="holder zip">
-        <input type="text" id="zip" placeholder="Enter zip code here" />
-      </div>
-      <div class="holder feel">
-        <textarea
-          class="myInput"
-          id="feelings"
-          placeholder="Enter your feelings here"
-          rows="3"
-          cols="50"
-        ></textarea>
+      <form action="#" id="myForm">
+        <div class="holder zip">
+          <input
+            type="number"
+            min="0"
+            pattern="\d*"
+            id="zip"
+            placeholder="Enter zip code here"
+            required
+          />
+        </div>
+        <div class="holder feel">
+          <textarea
+            class="myInput"
+            id="feelings"
+            placeholder="Enter your feelings here"
+            rows="3"
+            cols="50"
+          ></textarea>
+        </div>
         <button id="generate" type="submit">Generate</button>
-      </div>
+      </form>
       <div class="holder entry">
         <div class="title">Most Recent Entry</div>
         <div id="entryHolder">
-          <div id="date"></div>
-          <div id="temp"></div>
-          <div id="content"></div>
+          <div id="date">Date:N/A</div>
+          <div id="temp">Temp:N/A</div>
+          <div id="content">Feelings:N/A</div>
         </div>
       </div>
     </div>
